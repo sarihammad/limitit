@@ -1,0 +1,16 @@
+services:
+  redis:
+    image: redis:7.0
+    container_name: limitit-redis
+    ports:
+      - "6379:6379"
+
+  app:
+    build: .
+    container_name: limitit-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
