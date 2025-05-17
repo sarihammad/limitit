@@ -1,6 +1,6 @@
 package com.devign.limitit.controller;
 
-import com.devign.ratelimiter.service.RateLimiterService;
+import com.devign.limitit.service.RateLimiterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
