@@ -1,0 +1,37 @@
+services:
+  limitit-db:
+    image: mysql:8.0
+    container_name: limitit-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: limititdb
+      MYSQL_USER: limitituser
+      MYSQL_PASSWORD: limititpass
+    ports:
+      - "3306:3306"
+    networks:
+      - limitit-network
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  limitit-app:
+    build: .
+    container_name: limitit-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - limitit-redis
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  limitit-redis:
+    image: redis:7.0
+    container_name: limitit-redis
+    ports:
+      - "6379:6379"
+
+networks:
+  limitit-network:
+
+volumes:
+  mysql_data:
